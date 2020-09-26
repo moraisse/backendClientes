@@ -7,6 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 import pt.com.smorais.clientes.backend.model.entity.Cliente;
 import pt.com.smorais.clientes.backend.model.repository.ClienteRepository;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -20,14 +22,15 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvar(@RequestBody Cliente cliente) {
+    public Cliente salvar(@RequestBody @Valid Cliente cliente) {
+
         return clienteRepository.save(cliente);
     }
 
     @GetMapping("{id}")
     public Cliente acharPorId(@PathVariable Integer id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 
     @DeleteMapping("{id}")

@@ -21,11 +21,11 @@ public class Cliente {
     private Integer id;
 
     @Column(nullable = false, length = 150)
-    @NotEmpty
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(nullable = false, length = 9)
-    @NotNull
+    @NotNull(message = "{campo.nif.obrigatorio}")
     private String nif;
 
     @Column(name = "data_cadastro")
